@@ -6,7 +6,7 @@ public class Affine implements Cipher {
 
     private State state;
 
-    public Affine(String text, String mode) {
+    public Affine(String text, int a, int b, int c, String mode) {
         this.text = text.toUpperCase();
 
         if (mode.equals("encrypt")) state = State.ENCRYPT;
@@ -15,6 +15,8 @@ public class Affine implements Cipher {
 
     @Override
     public String process() {
+
+
         return null;
     }
 
