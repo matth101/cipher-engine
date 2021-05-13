@@ -24,10 +24,14 @@ public class Caesar implements Cipher {
         else if (mode.equals("decrypt")) state = State.DECRYPT;
     }
 
-    @Override
     public String process() {
         String holder = "";
         for (int i = 0; i < text.length(); i++) {
+            if (text.charAt(i) == ' ') {
+                sb.append(' ');
+                continue;
+            }
+                
             int letterPos = text.charAt(i);
             int newPos = 0;
 
@@ -48,8 +52,7 @@ public class Caesar implements Cipher {
             sb.append((char) newPos);
         }
 
-        holder = sb.toString();
-        return holder;
+        return sb.toString();
     }
 
     public String getText() { return text; }

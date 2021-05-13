@@ -1,9 +1,5 @@
 package ciphers;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
-
 public class Vigenere implements Cipher { // encoded with an alphabet square generally
 
     private String text;
@@ -21,21 +17,17 @@ public class Vigenere implements Cipher { // encoded with an alphabet square gen
         else if (mode.equals("decrypt")) state = State.DECRYPT;
     }
 
-    @Override
     public String process() {
-        if (text.contains(" ")) {
-            text.replaceAll(" ", "");
-        }
-
-        List<Character> inputChars = getCharArray(text); // put characters of word into list
-        List<Character> keyChars = getCharArray(key); // same for key
-
         int counter = 0;
-        for (int i = 0; i < inputChars.size(); i++) {
-            char inputChar = inputChars.get(i);
-            if (counter == keyChars.size()) counter = 0; // line up the key with input
+        for (int i = 0; i < text.length(); i++) {
+            char inputChar = text.charAt(i);
+            if (inputChar == ' ') {
+                sb.append(' ');
+                continue;
+            }
 
-            char keyChar = keyChars.get(counter);
+            if (counter == key.length()) counter = 0; // line up the key with input
+            char keyChar = key.charAt(counter);
             counter++;
 
             int length = 26;
@@ -45,9 +37,4 @@ public class Vigenere implements Cipher { // encoded with an alphabet square gen
 
         return sb.toString();
     }
-
-    public List<Character> getCharArray(String string) {
-        return string.chars().mapToObj(c -> (char) c).collect(Collectors.toList());
-    }
-
 }

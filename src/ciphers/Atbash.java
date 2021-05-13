@@ -1,5 +1,7 @@
 package ciphers;
 
+// Cipher where alphabet essentially becomes a mirror 
+// (A corresponds to Z, B corresponds to Y, C corresponds to X, etc.).
 public class Atbash implements Cipher {
 
     private String text;
@@ -13,8 +15,7 @@ public class Atbash implements Cipher {
         sb = new StringBuilder(text.length());
     }
 
-    @Override
-    public String process() { // implementation is the same, simple enough to not have to split into encrypt() and decrypt()
+    public String process() { // implementation is the same, won't split into decrypt() and encrypt()
         String holder = "";
 
         for (int i = 0; i < text.length(); i++) {
