@@ -7,8 +7,6 @@ public class Atbash implements Cipher {
     private String text;
     private StringBuilder sb;
 
-    private State state;
-
     public Atbash(String text) {
         this.text = text.toUpperCase();
 

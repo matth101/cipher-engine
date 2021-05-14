@@ -13,15 +13,15 @@ public class Affine implements Cipher {
     private StringBuilder sb;
 
     public Affine(String[] input) {
-        this.text = input[0].toUpperCase();
-        this.a = Integer.parseInt(input[1]);
-        this.b = Integer.parseInt(input[2]);;
-        this.m = Integer.parseInt(input[3]);;
+        this.text = input[1].toUpperCase();
+        this.a = Integer.parseInt(input[2]);
+        this.b = Integer.parseInt(input[3]);;
+        this.m = Integer.parseInt(input[4]);;
 
         sb = new StringBuilder();
 
-        if (input[4].toUpperCase().equals("ENCRYPT")) state = State.ENCRYPT;
-        else if (input[4].toUpperCase().equals("DECRYPT")) state = State.DECRYPT;
+        if (input[5].toUpperCase().equals("ENCRYPT")) state = State.ENCRYPT;
+        else if (input[5].toUpperCase().equals("DECRYPT")) state = State.DECRYPT;
     }
 
     @Override
@@ -35,7 +35,7 @@ public class Affine implements Cipher {
         for (int i = 0; i < text.length(); i++) {
             char curr = text.charAt(i);
             if (curr != ' ') {
-                sb.append((char) ((a * (curr - A_ASCII_POS) + b) % m) + A_ASCII_POS);
+                sb.append((char) (((a * (curr - A_ASCII_POS) + b) % m) + A_ASCII_POS));
             }
             else {
                 sb.append(' ');

@@ -5,6 +5,8 @@ import ciphers.Vigenere;
 
 import java.util.*;
 
+import org.graalvm.compiler.lir.gen.DiagnosticLIRGeneratorTool.ZapRegistersAfterInstruction;
+
 public class Main {
 
     private Scanner sc;
@@ -43,9 +45,22 @@ public class Main {
                     if (input[0].toUpperCase().equals("X")) {
                         exit();
                     }
+
+                    String mode = "";
+                    switch (input.length) {
+                        case 2:
+                            mode = "ENCRYPT"; // fall-through even though Atbash has no mode
+                            break;
+                        case 6:
+                            mode = input[5].toUpperCase();
+                            break;
+                        default:
+                            mode = input[3].toUpperCase();
+                            break;
+                    }
                     
                     boolean reprompt = false;
-                    if (!(input[3].toUpperCase().equals("ENCRYPT") || input[3].toUpperCase().equals("DECRYPT")) || 
+                    if (!(mode.equals("ENCRYPT") || mode.equals("DECRYPT")) || 
                         ((input[0].toUpperCase().equals("CAESAR") && input.length != 4) || 
                             (input[0].toUpperCase().equals("ATBASH") && input.length != 2) ||
                                 (input[0].toUpperCase().equals("VIGENERE") && input.length != 4) || 

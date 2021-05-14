@@ -19,8 +19,8 @@ public class Caesar implements Cipher {
 
         sb = new StringBuilder(text.length());
 
-        if (input[2].toUpperCase().equals("ENCRYPT")) state = State.ENCRYPT;
-        else if (input[2].toUpperCase().equals("DECRYPT")) state = State.DECRYPT;
+        if (input[3].toUpperCase().equals("ENCRYPT")) state = State.ENCRYPT;
+        else if (input[3].toUpperCase().equals("DECRYPT")) state = State.DECRYPT;
     }
 
     public String process() {
