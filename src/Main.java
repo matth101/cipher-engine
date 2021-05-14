@@ -5,8 +5,6 @@ import ciphers.Vigenere;
 
 import java.util.*;
 
-import org.graalvm.compiler.lir.gen.DiagnosticLIRGeneratorTool.ZapRegistersAfterInstruction;
-
 public class Main {
 
     private Scanner sc;
@@ -17,9 +15,6 @@ public class Main {
 
     // Available: Caesar, Atbash, Vigenere, Affine
     public static void main(String[] args) {
-
-        // Caesar caesar = new Caesar(new String[]{"Caesar", "example", "7", "encrypt"});
-        // System.out.println(caesar.process());
         new Main().run();
     }
 
