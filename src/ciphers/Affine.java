@@ -12,16 +12,16 @@ public class Affine implements Cipher {
 
     private StringBuilder sb;
 
-    public Affine(String text, int a, int b, int m, String mode) {
-        this.text = text.toUpperCase();
-        this.a = a;
-        this.b = b;
-        this.m = m;
+    public Affine(String[] input) {
+        this.text = input[0].toUpperCase();
+        this.a = Integer.parseInt(input[1]);
+        this.b = Integer.parseInt(input[2]);;
+        this.m = Integer.parseInt(input[3]);;
 
         sb = new StringBuilder();
 
-        if (mode.equals("encrypt")) state = State.ENCRYPT;
-        else if (mode.equals("decrypt")) state = State.DECRYPT;
+        if (input[4].toUpperCase().equals("ENCRYPT")) state = State.ENCRYPT;
+        else if (input[4].toUpperCase().equals("DECRYPT")) state = State.DECRYPT;
     }
 
     @Override
@@ -35,7 +35,7 @@ public class Affine implements Cipher {
         for (int i = 0; i < text.length(); i++) {
             char curr = text.charAt(i);
             if (curr != ' ') {
-                sb.append((char) ((a*(curr - A_ASCII_POS) + b) % m) + A_ASCII_POS);
+                sb.append((char) ((a * (curr - A_ASCII_POS) + b) % m) + A_ASCII_POS);
             }
             else {
                 sb.append(' ');
@@ -48,14 +48,15 @@ public class Affine implements Cipher {
     public String decrypt() {
         int inverse = 0;
         for (int i = 0; i < m; i++) {
-            if ((a*i) % 26 == 1) { // find t, the multiplicative inverse
+            if ((a * i) % 26 == 1) { // find t, the multiplicative inverse
                 inverse = i;
             }
         }
 
+        System.out.println(inverse);
         for (int i = 0; i < text.length(); i++) {
             if (text.charAt(i) != ' ') {
-                sb.append((char) (inverse * (text.charAt(i) - A_ASCII_POS - b) % m) + 'A');
+                sb.append((char) ((inverse * (text.charAt(i) + A_ASCII_POS - b) % m) + A_ASCII_POS));
             }
             else {
                 sb.append(' ');

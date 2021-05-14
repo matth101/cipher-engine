@@ -7,14 +7,14 @@ public class Vigenere implements Cipher { // encoded with an alphabet square gen
     private StringBuilder sb;
     private State state;
 
-    public Vigenere(String text, String key, String mode) {
-        this.text = text.toUpperCase();
-        this.key = key.toUpperCase();
+    public Vigenere(String[] input) {
+        this.text = input[1].toUpperCase();
+        this.key = input[2].toUpperCase();
 
         sb = new StringBuilder(text.length());
 
-        if (mode.equals("encrypt")) state = State.ENCRYPT;
-        else if (mode.equals("decrypt")) state = State.DECRYPT;
+        if (input[3].toUpperCase().equals("ENCRYPT")) state = State.ENCRYPT;
+        else if (input[3].toUpperCase().equals("DECRYPT")) state = State.DECRYPT;
     }
 
     public String process() {

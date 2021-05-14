@@ -4,7 +4,6 @@ public class Caesar implements Cipher {
 
     private String text;
     private int key;
-    private String result;
 
     private StringBuilder sb;
 
@@ -15,17 +14,16 @@ public class Caesar implements Cipher {
         this.key = key;
     }
 
-    public Caesar(String text, int key, String mode) {
-        this(text, key);
+    public Caesar(String[] input) {
+        this(input[1], Integer.parseInt(input[2]));
 
         sb = new StringBuilder(text.length());
 
-        if (mode.equals("encrypt")) state = State.ENCRYPT;
-        else if (mode.equals("decrypt")) state = State.DECRYPT;
+        if (input[2].toUpperCase().equals("ENCRYPT")) state = State.ENCRYPT;
+        else if (input[2].toUpperCase().equals("DECRYPT")) state = State.DECRYPT;
     }
 
     public String process() {
-        String holder = "";
         for (int i = 0; i < text.length(); i++) {
             if (text.charAt(i) == ' ') {
                 sb.append(' ');
