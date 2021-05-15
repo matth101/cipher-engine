@@ -2,25 +2,28 @@ package ciphers;
 
 public class Caesar implements Cipher {
 
-    private String text;
+    private String text = "";
     private int key;
 
-    private StringBuilder sb;
+    private StringBuilder sb, temp;
 
     public State state;
 
-    public Caesar(String text, int key) {
-        this.text = text.toUpperCase();
-        this.key = key;
-    }
-
     public Caesar(String[] input) {
-        this(input[1], Integer.parseInt(input[2]));
+        temp = new StringBuilder();
+        for (int i = 1; i < input.length-2; i++) {
+            if (i > 1 && i < input.length-2) {
+                temp.append(" ");
+            }
+            temp.append(input[i].toUpperCase());
+        }
+        text = temp.toString();
+        this.key = Integer.parseInt(input[input.length-2]);
 
         sb = new StringBuilder(text.length());
 
-        if (input[3].toUpperCase().equals("ENCRYPT")) state = State.ENCRYPT;
-        else if (input[3].toUpperCase().equals("DECRYPT")) state = State.DECRYPT;
+        if (input[input.length-1].toUpperCase().equals("ENCRYPT")) state = State.ENCRYPT;
+        else if (input[input.length-1].toUpperCase().equals("DECRYPT")) state = State.DECRYPT;
     }
 
     public String process() {

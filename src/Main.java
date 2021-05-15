@@ -13,13 +13,16 @@ public class Main {
         sc = new Scanner(System.in);
     }
 
-    // Available: Caesar, Atbash, Vigenere, Affine
+    // Options: Caesar, Atbash, Vigenere, Affine
     public static void main(String[] args) {
+        // Caesar c = new Caesar(new String[] {"Caesar", "abc", "de", "2", "encrypt"});
+        // System.out.println(c.process());
         new Main().run();
     }
 
     public void run() {
-        System.out.println("Welcome to the Cipher Engine!");
+        System.out.println();
+        System.out.println("\nWelcome to the Cipher Engine!");
         System.out.println("Cipher options: Caesar, Atbash, Vigenere, Affine\n");
         System.out.println("Type according to these input formats:");
         System.out.println("Caesar [text] [key number] [mode]");
@@ -41,26 +44,10 @@ public class Main {
                         exit();
                     }
 
-                    String mode = "";
-                    switch (input.length) {
-                        case 2:
-                            mode = "ENCRYPT"; // fall-through even though Atbash has no mode
-                            break;
-                        case 6:
-                            mode = input[5].toUpperCase();
-                            break;
-                        default:
-                            mode = input[3].toUpperCase();
-                            break;
-                    }
-                    
+                    String mode = input[input.length-1].toUpperCase();                    
                     boolean reprompt = false;
-                    if (!(mode.equals("ENCRYPT") || mode.equals("DECRYPT")) || 
-                        ((input[0].toUpperCase().equals("CAESAR") && input.length != 4) || 
-                            (input[0].toUpperCase().equals("ATBASH") && input.length != 2) ||
-                                (input[0].toUpperCase().equals("VIGENERE") && input.length != 4) || 
-                                    (input[0].toUpperCase().equals("AFFINE") && input.length != 6))) {
-                            reprompt = true;
+                    if (!(mode.equals("ENCRYPT") || mode.equals("DECRYPT"))) {
+                        reprompt = true;
                     }
 
                     if (reprompt) {
@@ -80,33 +67,42 @@ public class Main {
                 break;
             }
             
-            String output = "";
-            switch (input[0].toUpperCase()) {
-                case "CAESAR":
-                    output = new Caesar(input).process();
-                    System.out.println(output);
-                    display.add("CAESAR: " + output);
-                    break;
-                case "ATBASH":
-                    output = new Atbash(input[1]).process();
-                    System.out.println(output);
-                    display.add("ATBASH: " + output);
-                    break;
-                case "VIGENERE":
-                    output = new Vigenere(input).process();
-                    System.out.println(output);
-                    display.add("VIGENERE: " + output);
-                    break;
-                case "AFFINE":
-                    output = new Affine(input).process();
-                    System.out.println(output);
-                    display.add("AFFINE: " + output);
-                    break;
-            }            
+            if (input[0].toUpperCase().equals("CAESAR") && Integer.parseInt(input[input.length-2]) < 0) {
+                System.out.println("Error: key cannot be negative.\n");
+                continue;
+            }
+            chooseCipher(input, display); // input = {"Caesar", "Computer", "7,", "encrypt"}
+          
             System.out.println();
             printList(display);
         }
         sc.close();
+    }
+
+    private void chooseCipher(String[] input, ArrayList<String> display) {
+        String output = "";
+        switch (input[0].toUpperCase()) {
+            case "CAESAR":
+                output = new Caesar(input).process();
+                System.out.println(output);
+                display.add("CAESAR: " + output);
+                break;
+            case "ATBASH":
+                output = new Atbash(input[1]).process();
+                System.out.println(output);
+                display.add("ATBASH: " + output);
+                break;
+            case "VIGENERE":
+                output = new Vigenere(input).process();
+                System.out.println(output);
+                display.add("VIGENERE: " + output);
+                break;
+            case "AFFINE":
+                output = new Affine(input).process();
+                System.out.println(output);
+                display.add("AFFINE: " + output);
+                break;
+        }  
     }
 
     private void printList(ArrayList<String> list) {
