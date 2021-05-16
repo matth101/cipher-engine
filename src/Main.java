@@ -46,7 +46,7 @@ public class Main {
 
                     String mode = input[input.length-1].toUpperCase();                    
                     boolean reprompt = false;
-                    if (!(mode.equals("ENCRYPT") || mode.equals("DECRYPT"))) {
+                    if (!input[0].toUpperCase().equals("ATBASH") && !(mode.equals("ENCRYPT") || mode.equals("DECRYPT"))) {
                         reprompt = true;
                     }
 
